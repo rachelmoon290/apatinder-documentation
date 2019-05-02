@@ -1,0 +1,228 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>APA Tinder for Dogs Web Application &#8212; ac297r_project_directory 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">ac297r_project_directory 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="apa-tinder-for-dogs-web-application">
+<h1>APA Tinder for Dogs Web Application<a class="headerlink" href="#apa-tinder-for-dogs-web-application" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about-the-project">
+<h2>About the project<a class="headerlink" href="#about-the-project" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction">
+<h3>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>This project is Harvard’s AC297r Capstone Project course</p>
+</div>
+<div class="section" id="web-structure">
+<h3>2. Web Structure<a class="headerlink" href="#web-structure" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="installation-and-setup-macos">
+<h2>Installation and setup (MacOS)<a class="headerlink" href="#installation-and-setup-macos" title="Permalink to this headline">¶</a></h2>
+<p>Follow these steps below to install and setup all the necessary components to run our web application in a production environment.</p>
+<div class="section" id="mysql-installation">
+<h3>1. MySQL Installation<a class="headerlink" href="#mysql-installation" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><strong>Download MySQL:</strong> If MySQL is not already installed on your computer, download MySQL Community Server from this link: <a class="reference external" href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a>.</li>
+<li><strong>Install MySQL.</strong> Use “Legacy Password Encryption” option, for version compatibility.</li>
+<li><strong>Initialize database and start server:</strong> In System Preferences &gt; MySQL, click on “Initialize Database.” Set a password (this will be your password for the default root user), and use “Legacy Password Encryption.” When it is complete, press “Start MySQL Server.”</li>
+<li><strong>Log into MySQL:</strong> In terminal, type <code class="docutils literal notranslate"><span class="pre">mysql</span> <span class="pre">-u</span> <span class="pre">root</span> <span class="pre">-p</span></code>. Then type the password you set during database initialization (Step 3). Then you will be able to log into MySQL in the terminal.</li>
+<li>(Optional) <strong>Create another database user:</strong> In MySQL type <code class="docutils literal notranslate"><span class="pre">GRANT</span> <span class="pre">ALL</span> <span class="pre">PRIVILEGES</span> <span class="pre">ON</span> <span class="pre">*.*</span> <span class="pre">TO</span> <span class="pre">'username'&#64;'localhost'</span> <span class="pre">IDENTIFIED</span> <span class="pre">BY</span> <span class="pre">'password';</span></code>. Replace <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> with the user information you want to create.</li>
+<li><strong>Create database:</strong> In MySQL, type <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">DATABASE</span> <span class="pre">apa_tinder;</span></code>. <code class="docutils literal notranslate"><span class="pre">apa_tinder</span></code> is the name of the database. Then type <code class="docutils literal notranslate"><span class="pre">USE</span> <span class="pre">apa_tinder;</span></code> to start using <code class="docutils literal notranslate"><span class="pre">apa_tinder</span></code> database.</li>
+<li><strong>Import sql files into MySQL:</strong> We used sql dump file from APA! to build and test our web application. To import the dump file into your local MySQL, in the terminal (not in MySQL) type <code class="docutils literal notranslate"><span class="pre">mysql</span> <span class="pre">-u</span> <span class="pre">root</span> <span class="pre">-p</span> <span class="pre">apa_tinder</span> <span class="pre">&lt;</span> <span class="pre">/Users/directory/to/dumpfile/apadump.sql</span></code>. Use the directory path for your sql dump file. To easily get the directory path information, you can drag and drop your sql dump file into the terminal. Next, import <code class="docutils literal notranslate"><span class="pre">super_dog_table.sql</span></code> to your MySQL, using the same procedure.</li>
+</ol>
+</div>
+<div class="section" id="model-backend-setup">
+<h3>2. Model Backend setup<a class="headerlink" href="#model-backend-setup" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li>Navigate to <code class="docutils literal notranslate"><span class="pre">src/model-server</span></code> folder. To download required packages, in terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</li>
+<li>Create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: in terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate the following variables with values.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DATABASE_USER</span><span class="o">=</span>
+<span class="n">DATABASE_PASSWORD</span><span class="o">=</span>
+<span class="n">SECRET_KEY</span><span class="o">=</span> <span class="c1">#this can be anything</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li>In terminal, type <code class="docutils literal notranslate"><span class="pre">./run.sh</span></code>. If the backend runs successfully, you will see <code class="docutils literal notranslate"><span class="pre">Running</span> <span class="pre">on</span> <span class="pre">localhost:xxxx</span></code> from the resulting message. In your web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:xxxx</span></code> to view a list of model backend REST API endpoints.</li>
+</ol>
+</div>
+<div class="section" id="web-frontend-and-backend-setup">
+<h3>3. Web Frontend and Backend setup<a class="headerlink" href="#web-frontend-and-backend-setup" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li>Install yarn: in terminal, type <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">yarn</span></code>.</li>
+<li>Next, you need to run the web backend server (GraphQL). Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-server/src</span></code>. In the directory, create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: in terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate these variables with values. For example, for development and testing purposes, <code class="docutils literal notranslate"><span class="pre">DB_ENDPOINT=localhost</span></code>.</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DB_ENDPOINT</span><span class="o">=</span>
+<span class="n">DB_USERNAME</span><span class="o">=</span>
+<span class="n">DB_PASSWORD</span><span class="o">=</span>
+<span class="n">TWILIO_SID</span><span class="o">=</span>
+<span class="n">TWILIO_PHONE</span><span class="o">=</span>
+<span class="n">TWILIO_TOKEN</span><span class="o">=</span>
+<span class="n">JWT_TOKEN</span><span class="o">=</span>
+<span class="n">MAILGUN_VALIDATION</span><span class="o">=</span>
+<span class="n">MAILGUN_API_KEY</span><span class="o">=</span>
+<span class="n">MAILGUN_DOMAIN</span><span class="o">=</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li>Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-server</span></code>. In terminal, run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code>, and then run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">run</span> <span class="pre">dev</span></code>. Confirm that you get the message “listening on port yyyy.”</li>
+<li>Now you will be running the web frontend. Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-client</span></code>. In terminal, run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code>, and then run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">start</span></code>. Check the port number (zzzz) from the message. In the web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:zzzz</span></code> to view the web application.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="dog-recommendation-model">
+<h2>Dog Recommendation Model<a class="headerlink" href="#dog-recommendation-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-cleaning">
+<h3>Data Cleaning<a class="headerlink" href="#data-cleaning" title="Permalink to this headline">¶</a></h3>
+<p>Our team was given sql data from APA! that contains information about all dogs (~30,000 dogs) in the shelter. There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as ‘AnimalCoverPhoto’, ‘Location’, ‘AnimalStatus’, etc. We were left with 21 columns, as shown below.</p>
+<ol class="simple">
+<li>AnimalSex</li>
+<li>AnimalCurrentWeightPounds</li>
+<li>AnimalAltered</li>
+<li>AnimalAgeDays</li>
+<li>AnimalBreed</li>
+<li>AnimalColor</li>
+<li>AgeAtIntake</li>
+<li>LastEventType</li>
+<li>FirstIntakeEventType</li>
+<li>LastIntakeEventType</li>
+<li>CurrentVolunteerCategory</li>
+<li>CurrentBehaviorCategory</li>
+<li>IsDistemper</li>
+<li>IsDistemperWatch</li>
+<li>IsMedicalConsult</li>
+<li>IsCGC</li>
+<li>IsTopDog</li>
+<li>IsHWPos</li>
+<li>IsHWTreatment</li>
+<li>IsBehaviorConsult</li>
+<li>DaysInShelter</li>
+</ol>
+<p>We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time inspecting ‘AnimalColor’ and ‘AnimalBreed’ columns, since they are important features when determining the popularity of dogs.</p>
+</div>
+<div class="section" id="feature-engineering">
+<h3>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="animalcolor-column">
+<h4>AnimalColor column<a class="headerlink" href="#animalcolor-column" title="Permalink to this headline">¶</a></h4>
+<p>There were 292 unique animal colors for around 30,000 dogs in our data, where animal colors such as Blue/Black, Blue/Gold, and Blue/Grey were classified as different colors. We decided to choose top 10 popular colors, Black, Brown, Tan, White, Cream, Blue, Blond, Red, Grey, and Yellow, and grouped all dogs into those 10 colors.</p>
+<p>Instead of doing one-hot encoding for 10 different colors, we manually created 10 new columns indicating whether each dog contains each color - IsBlack, IsBrown, IsTan, IsWhite, IsCream, IsBlue, IsBlond, IsRed, IsGrey, and IsYellow. For example, if the color of a dog is Black/Brown, it will have values 1 for IsBlack and IsBrown columns, and 0 for the other columns. This approach is better than one-hot encoding, since one-hot encoding allows only one input to have a value 1. If we used one-hot encoding, this dog would have had a value 1 for only IsBlack or IsBrown column and 0 for the rest of columns, so it is not an accurate representation of our data.</p>
+</div>
+<div class="section" id="animalbreed-column">
+<h4>AnimalBreed column<a class="headerlink" href="#animalbreed-column" title="Permalink to this headline">¶</a></h4>
+<p>There were 1969 unique animal breeds for around 30,000 dogs in our data, where animal breeds such as Beagle/Bulldog, Beagle/Dachshund, and Beagle/Hound were classified as different breeds. We decided to choose top 40 popular breeds obtained from APA! website as different breeds.</p>
+<p>Instead of doing one-hot encoding for 40 different breeds, we manually created 40 new columns indicating whether each dog contains each breed - IsDachshund, IsBeagle, IsBulldog, etc. For example if the breed of a dog is Beagle/Bulldog, it will have values 1 for IsBeagle and IsBulldog columns, and 0 for the other columns. Again, if we used one-hot encoding, this dog would have had a value 1 for only IsBeagle or IsBulldog column and 0 for the rest of columns, so it is not an accurate representation of our data.</p>
+</div>
+</div>
+<div class="section" id="dog-popularity-model-prior-model">
+<h3>1. Dog Popularity Model (Prior Model)<a class="headerlink" href="#dog-popularity-model-prior-model" title="Permalink to this headline">¶</a></h3>
+<p>In APA!, it is important to predict popularity of each dog and how long each dog will stay in the shelter, since it wants to show right dogs to right people. While more popular dogs will have lower values for length of stay and less popular dogs will have higher values for lengthy of stay, the bayesian prior model uses dog features (age, color, breed, etc) to predict the length of stay for each dog.</p>
+</div>
+<div class="section" id="user-swipes-model-posterior-model">
+<h3>2. User Swipes Model (Posterior Model)<a class="headerlink" href="#user-swipes-model-posterior-model" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">APA Tinder for Dogs Web Application</a><ul>
+<li><a class="reference internal" href="#about-the-project">About the project</a><ul>
+<li><a class="reference internal" href="#introduction">1. Introduction</a></li>
+<li><a class="reference internal" href="#web-structure">2. Web Structure</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation-and-setup-macos">Installation and setup (MacOS)</a><ul>
+<li><a class="reference internal" href="#mysql-installation">1. MySQL Installation</a></li>
+<li><a class="reference internal" href="#model-backend-setup">2. Model Backend setup</a></li>
+<li><a class="reference internal" href="#web-frontend-and-backend-setup">3. Web Frontend and Backend setup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dog-recommendation-model">Dog Recommendation Model</a><ul>
+<li><a class="reference internal" href="#data-cleaning">Data Cleaning</a></li>
+<li><a class="reference internal" href="#feature-engineering">Feature Engineering</a><ul>
+<li><a class="reference internal" href="#animalcolor-column">AnimalColor column</a></li>
+<li><a class="reference internal" href="#animalbreed-column">AnimalBreed column</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dog-popularity-model-prior-model">1. Dog Popularity Model (Prior Model)</a></li>
+<li><a class="reference internal" href="#user-swipes-model-posterior-model">2. User Swipes Model (Posterior Model)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">ac297r_project_directory 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+# APA Tinder for Dogs Web Application
+### Contents:
+  *
+
+
+## Installation
+### 1. MySQL Installation
+
+### 2. Web Frontend and backend setup
+
+### 3. Model Backend setup
