@@ -40,15 +40,19 @@
 <h2>About the project<a class="headerlink" href="#about-the-project" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="introduction">
 <h3>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
-<p>This project is Harvard’s AC297r Capstone Project course</p>
 </div>
-<div class="section" id="web-structure">
-<h3>2. Web Structure<a class="headerlink" href="#web-structure" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="problem-statement">
+<h3>2. Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
+<p>APA Tinder for Dogs is a web application that enables adopters</p>
+<p>This project is part of Harvard’s AC297r Capstone Project course, partnered with APA!.</p>
+</div>
+<div class="section" id="web-architecture">
+<h3>3. Web Architecture<a class="headerlink" href="#web-architecture" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="installation-and-setup-macos">
 <h2>Installation and setup (MacOS)<a class="headerlink" href="#installation-and-setup-macos" title="Permalink to this headline">¶</a></h2>
-<p>Follow these steps below to install and setup all the necessary components to run our web application in a production environment.</p>
+<p>Please follow these steps below to install and set up all the necessary components to run our web application in a production environment.</p>
 <div class="section" id="mysql-installation">
 <h3>1. MySQL Installation<a class="headerlink" href="#mysql-installation" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
@@ -128,7 +132,7 @@
 <li>IsBehaviorConsult</li>
 <li>DaysInShelter</li>
 </ol>
-<p>We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time inspecting ‘AnimalColor’ and ‘AnimalBreed’ columns, since they are important features when determining the popularity of dogs.</p>
+<p>We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time insepcting ‘AnimalColor’ and ‘AnimalBreed’ columns, since they are important features when determining the popularity of dogs.</p>
 </div>
 <div class="section" id="feature-engineering">
 <h3>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this headline">¶</a></h3>
@@ -141,15 +145,26 @@
 <h4>AnimalBreed column<a class="headerlink" href="#animalbreed-column" title="Permalink to this headline">¶</a></h4>
 <p>There were 1969 unique animal breeds for around 30,000 dogs in our data, where animal breeds such as Beagle/Bulldog, Beagle/Dachshund, and Beagle/Hound were classified as different breeds. We decided to choose top 40 popular breeds obtained from APA! website as different breeds.</p>
 <p>Instead of doing one-hot encoding for 40 different breeds, we manually created 40 new columns indicating whether each dog contains each breed - IsDachshund, IsBeagle, IsBulldog, etc. For example if the breed of a dog is Beagle/Bulldog, it will have values 1 for IsBeagle and IsBulldog columns, and 0 for the other columns. Again, if we used one-hot encoding, this dog would have had a value 1 for only IsBeagle or IsBulldog column and 0 for the rest of columns, so it is not an accurate representation of our data.</p>
+<p>For other categorical columns like Animalsex, IsDistemper, IsCGC, etc, we performed one-hot encoding to make them ready for modeling. For continuous variables, we standardized them since different variables were at different scales.</p>
 </div>
 </div>
 <div class="section" id="dog-popularity-model-prior-model">
 <h3>1. Dog Popularity Model (Prior Model)<a class="headerlink" href="#dog-popularity-model-prior-model" title="Permalink to this headline">¶</a></h3>
-<p>In APA!, it is important to predict popularity of each dog and how long each dog will stay in the shelter, since it wants to show right dogs to right people. While more popular dogs will have lower values for length of stay and less popular dogs will have higher values for lengthy of stay, the bayesian prior model uses dog features (age, color, breed, etc) to predict the length of stay for each dog.</p>
+<p>The response variable for our analysis is ‘DaysInShelter’. The goal of the prior model is to figure out the best model that predicts ‘DaysInShelter’ and deliever the best set of coefficients of predictor variables to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.</p>
+<p>In order to find the best model, we have tried linear regression without polynomial terms, linear regression with polynomial degree 3 for ‘AgeAtIntake’, lassoCV with polynomial degree 3 for ‘AgeAtIntake’, ridgeCV with polynomial degree 3 for ‘AgeAtIntake’, and random forest using gridsearchCV. Expecting that ‘AgeAtIntake’ has a positive correlation with ‘DaysInShelter’, we would like to find out a non-linear relationship between ‘AgeAtIntake’ and ‘DaysInShelter’, by taking polynomial degree 3 for ‘AgeAtIntake’.</p>
+<p>Random forest using gridsearchCV produced the best test set $R^2$ score, followed by ridgeCV with polynomial degree 3 for ‘AgeAtIntake’. We decided to use ridgeCV, since ridge regression provides values of coefficients that can be used as coefficients for the posterior model and the performance of the ridge regression model was nearly as good as the random forest model.</p>
 </div>
 <div class="section" id="user-swipes-model-posterior-model">
 <h3>2. User Swipes Model (Posterior Model)<a class="headerlink" href="#user-swipes-model-posterior-model" title="Permalink to this headline">¶</a></h3>
 </div>
+</div>
+<div class="section" id="about-us">
+<h2>About Us<a class="headerlink" href="#about-us" title="Permalink to this headline">¶</a></h2>
+<p>We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone project class, and we have partnered with Austin Pets Alive! to work on this project.</p>
+</div>
+<div class="section" id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+<p>We thank our course instructors, Dr.David Sondak and Patrick Ohimoba, for guidance and support. We also thank Steve Porter from Austin Pets Alive! for making it possible for us to work on this project.</p>
 </div>
 </div>
 
@@ -164,7 +179,8 @@
 <li><a class="reference internal" href="#">APA Tinder for Dogs Web Application</a><ul>
 <li><a class="reference internal" href="#about-the-project">About the project</a><ul>
 <li><a class="reference internal" href="#introduction">1. Introduction</a></li>
-<li><a class="reference internal" href="#web-structure">2. Web Structure</a></li>
+<li><a class="reference internal" href="#problem-statement">2. Problem Statement</a></li>
+<li><a class="reference internal" href="#web-architecture">3. Web Architecture</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#installation-and-setup-macos">Installation and setup (MacOS)</a><ul>
@@ -184,6 +200,8 @@
 <li><a class="reference internal" href="#user-swipes-model-posterior-model">2. User Swipes Model (Posterior Model)</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#about-us">About Us</a></li>
+<li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
 </li>
 </ul>

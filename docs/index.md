@@ -64,6 +64,7 @@ MAILGUN_DOMAIN=
 ### Data Cleaning
 Our team was given sql data from APA! that contains information about all dogs (~30,000 dogs) in the shelter. There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 21 columns, as shown below.
 
+
 1. AnimalSex
 2. AnimalCurrentWeightPounds
 3. AnimalAltered
@@ -86,7 +87,8 @@ Our team was given sql data from APA! that contains information about all dogs (
 20. IsBehaviorConsult
 21. DaysInShelter
 
-We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time inspecting 'AnimalColor' and 'AnimalBreed' columns, since they are important features when determining the popularity of dogs.
+We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time insepcting 'AnimalColor' and 'AnimalBreed' columns, since they are important features when determining the popularity of dogs.
+
 
 ### Feature Engineering
 
@@ -95,16 +97,21 @@ There were 292 unique animal colors for around 30,000 dogs in our data, where an
 
 Instead of doing one-hot encoding for 10 different colors, we manually created 10 new columns indicating whether each dog contains each color - IsBlack, IsBrown, IsTan, IsWhite, IsCream, IsBlue, IsBlond, IsRed, IsGrey, and IsYellow. For example, if the color of a dog is Black/Brown, it will have values 1 for IsBlack and IsBrown columns, and 0 for the other columns. This approach is better than one-hot encoding, since one-hot encoding allows only one input to have a value 1. If we used one-hot encoding, this dog would have had a value 1 for only IsBlack or IsBrown column and 0 for the rest of columns, so it is not an accurate representation of our data.  
 
+
 #### AnimalBreed column
 There were 1969 unique animal breeds for around 30,000 dogs in our data, where animal breeds such as Beagle/Bulldog, Beagle/Dachshund, and Beagle/Hound were classified as different breeds. We decided to choose top 40 popular breeds obtained from APA! website as different breeds.
 
 Instead of doing one-hot encoding for 40 different breeds, we manually created 40 new columns indicating whether each dog contains each breed - IsDachshund, IsBeagle, IsBulldog, etc. For example if the breed of a dog is Beagle/Bulldog, it will have values 1 for IsBeagle and IsBulldog columns, and 0 for the other columns. Again, if we used one-hot encoding, this dog would have had a value 1 for only IsBeagle or IsBulldog column and 0 for the rest of columns, so it is not an accurate representation of our data.  
 
+For other categorical columns like Animalsex, IsDistemper, IsCGC, etc, we performed one-hot encoding to make them ready for modeling. For continuous variables, we standardized them since different variables were at different scales.
 
 ### 1. Dog Popularity Model (Prior Model)
 
-In APA!, it is important to predict popularity of each dog and how long each dog will stay in the shelter, since it wants to show right dogs to right people. While more popular dogs will have lower values for length of stay and less popular dogs will have higher values for lengthy of stay, the bayesian prior model uses dog features (age, color, breed, etc) to predict the length of stay for each dog.
+The response variable for our analysis is 'DaysInShelter'. The goal of the prior model is to figure out the best model that predicts 'DaysInShelter' and deliever the best set of coefficients of predictor variables to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.
 
+In order to find the best model, we have tried linear regression without polynomial terms, linear regression with polynomial degree 3 for 'AgeAtIntake', lassoCV with polynomial degree 3 for 'AgeAtIntake', ridgeCV with polynomial degree 3 for 'AgeAtIntake', and random forest using gridsearchCV. Expecting that 'AgeAtIntake' has a positive correlation with 'DaysInShelter', we would like to find out a non-linear relationship between 'AgeAtIntake' and 'DaysInShelter', by taking polynomial degree 3 for 'AgeAtIntake'.
+
+Random forest using gridsearchCV produced the best test set $R^2$ score, followed by ridgeCV with polynomial degree 3 for 'AgeAtIntake'. We decided to use ridgeCV, since ridge regression provides values of coefficients that can be used as coefficients for the posterior model and the performance of the ridge regression model was nearly as good as the random forest model.
 
 
 
