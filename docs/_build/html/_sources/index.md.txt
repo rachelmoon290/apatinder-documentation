@@ -6,6 +6,8 @@
 
 
 ### 2. Problem Statement
+Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) working per day, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, about 26%
+
 APA Tinder for Dogs is a web application that enables adopters
 
 This project is part of Harvard's AC297r Capstone Project course, partnered with APA!.
@@ -31,33 +33,21 @@ Please follow these steps below to install and set up all the necessary componen
 7. **Import sql files into MySQL:** We used sql dump file from APA! to build and test our web application. To import the dump file into your local MySQL, in the terminal (not in MySQL) type `mysql -u root -p apa_tinder < /Users/directory/to/dumpfile/apadump.sql`. Use the directory path for your sql dump file. To easily get the directory path information, you can drag and drop your sql dump file into the terminal. Next, import `super_dog_table.sql` to your MySQL, using the same procedure.
 
 ### 2. Model Backend setup
-1. Navigate to `src/model-server` folder. To download required packages, in terminal run `pip install -r requirements.txt`.
-2. Create `.env` file: in terminal, type `touch .env`. In the `.env` file, populate the following variables with values.
-```
-DATABASE_USER=
-DATABASE_PASSWORD=
-SECRET_KEY= #this can be anything
-```
-3. In terminal, type `./run.sh`. If the backend runs successfully, you will see `Running on localhost:xxxx` from the resulting message. In your web browser, navigate to `localhost:xxxx` to view a list of model backend REST API endpoints.
-
-### 3. Web Frontend and Backend setup
-1. Install yarn: in terminal, type `brew install yarn`.
-2. Next, you need to run the web backend server (GraphQL). Navigate to `src/apa-match-server/src`. In the directory, create `.env` file: in terminal, type `touch .env`. In the `.env` file, populate these variables with values. For example, for development and testing purposes, `DB_ENDPOINT=localhost`.
+1. Create `.env` file: Navigate to `src` folder. In terminal, type `touch .env`. In the `.env` file, populate the following variables with values. For example, for development and testing purposes, `DB_ENDPOINT=localhost`.
 ```
 DB_ENDPOINT=
 DB_USERNAME=
 DB_PASSWORD=
-TWILIO_SID=
-TWILIO_PHONE=
-TWILIO_TOKEN=
-JWT_TOKEN=
-MAILGUN_VALIDATION=
-MAILGUN_API_KEY=
-MAILGUN_DOMAIN=
 ```
 
-3. Navigate to `src/apa-match-server`. In terminal, run `yarn install`, and then run `yarn run dev`. Confirm that you get the message "listening on port yyyy."
-4. Now you will be running the web frontend. Navigate to `src/apa-match-client`. In terminal, run `yarn install`, and then run `yarn start`. Check the port number (zzzz) from the message. In the web browser, navigate to `localhost:zzzz` to view the web application.
+2. Navigate to `src/model-server` folder. To download required packages, in terminal run `pip install -r requirements.txt`.
+
+3. In terminal, type `./run.sh`. If the backend runs successfully, you will see `Running on localhost:xxxx` from the resulting message. In your web browser, navigate to `localhost:xxxx` to view a list of model backend REST API endpoints.
+
+### 3. Web Frontend and Backend setup
+1. Install yarn: in terminal, type `brew install yarn`.
+2. Next, you need to run the web backend server (GraphQL). Navigate to `src/apa-match-server`. In terminal, run `yarn install`, and then run `yarn run dev`. Confirm that you get the message "listening on port yyyy."
+3. Now you will be running the web frontend. Navigate to `src/apa-match-client`. In terminal, run `yarn install`, and then run `yarn start`. Check the port number (zzzz) from the message. In the web browser, navigate to `localhost:zzzz` to view the web application.
 
 
 ## Dog Recommendation Model

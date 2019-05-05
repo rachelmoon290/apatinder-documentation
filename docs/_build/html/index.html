@@ -43,6 +43,7 @@
 </div>
 <div class="section" id="problem-statement">
 <h3>2. Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
+<p>Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) working per day, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, about 26%</p>
 <p>APA Tinder for Dogs is a web application that enables adopters</p>
 <p>This project is part of Harvard’s AC297r Capstone Project course, partnered with APA!.</p>
 </div>
@@ -68,15 +69,15 @@
 <div class="section" id="model-backend-setup">
 <h3>2. Model Backend setup<a class="headerlink" href="#model-backend-setup" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
-<li>Navigate to <code class="docutils literal notranslate"><span class="pre">src/model-server</span></code> folder. To download required packages, in terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</li>
-<li>Create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: in terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate the following variables with values.</li>
+<li>Create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: Navigate to <code class="docutils literal notranslate"><span class="pre">src</span></code> folder. In terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate the following variables with values. For example, for development and testing purposes, <code class="docutils literal notranslate"><span class="pre">DB_ENDPOINT=localhost</span></code>.</li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DATABASE_USER</span><span class="o">=</span>
-<span class="n">DATABASE_PASSWORD</span><span class="o">=</span>
-<span class="n">SECRET_KEY</span><span class="o">=</span> <span class="c1">#this can be anything</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DB_ENDPOINT</span><span class="o">=</span>
+<span class="n">DB_USERNAME</span><span class="o">=</span>
+<span class="n">DB_PASSWORD</span><span class="o">=</span>
 </pre></div>
 </div>
 <ol class="simple">
+<li>Navigate to <code class="docutils literal notranslate"><span class="pre">src/model-server</span></code> folder. To download required packages, in terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</li>
 <li>In terminal, type <code class="docutils literal notranslate"><span class="pre">./run.sh</span></code>. If the backend runs successfully, you will see <code class="docutils literal notranslate"><span class="pre">Running</span> <span class="pre">on</span> <span class="pre">localhost:xxxx</span></code> from the resulting message. In your web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:xxxx</span></code> to view a list of model backend REST API endpoints.</li>
 </ol>
 </div>
@@ -84,22 +85,7 @@
 <h3>3. Web Frontend and Backend setup<a class="headerlink" href="#web-frontend-and-backend-setup" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li>Install yarn: in terminal, type <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">yarn</span></code>.</li>
-<li>Next, you need to run the web backend server (GraphQL). Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-server/src</span></code>. In the directory, create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: in terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate these variables with values. For example, for development and testing purposes, <code class="docutils literal notranslate"><span class="pre">DB_ENDPOINT=localhost</span></code>.</li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DB_ENDPOINT</span><span class="o">=</span>
-<span class="n">DB_USERNAME</span><span class="o">=</span>
-<span class="n">DB_PASSWORD</span><span class="o">=</span>
-<span class="n">TWILIO_SID</span><span class="o">=</span>
-<span class="n">TWILIO_PHONE</span><span class="o">=</span>
-<span class="n">TWILIO_TOKEN</span><span class="o">=</span>
-<span class="n">JWT_TOKEN</span><span class="o">=</span>
-<span class="n">MAILGUN_VALIDATION</span><span class="o">=</span>
-<span class="n">MAILGUN_API_KEY</span><span class="o">=</span>
-<span class="n">MAILGUN_DOMAIN</span><span class="o">=</span>
-</pre></div>
-</div>
-<ol class="simple">
-<li>Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-server</span></code>. In terminal, run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code>, and then run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">run</span> <span class="pre">dev</span></code>. Confirm that you get the message “listening on port yyyy.”</li>
+<li>Next, you need to run the web backend server (GraphQL). Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-server</span></code>. In terminal, run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code>, and then run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">run</span> <span class="pre">dev</span></code>. Confirm that you get the message “listening on port yyyy.”</li>
 <li>Now you will be running the web frontend. Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-client</span></code>. In terminal, run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code>, and then run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">start</span></code>. Check the port number (zzzz) from the message. In the web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:zzzz</span></code> to view the web application.</li>
 </ol>
 </div>
