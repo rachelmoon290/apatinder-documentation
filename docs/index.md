@@ -33,11 +33,12 @@ Please follow these steps below to install and set up all the necessary componen
 7. **Import sql files into MySQL:** We used sql dump file from APA! to build and test our web application. To import the dump file into your local MySQL, in the terminal (not in MySQL) type `mysql -u root -p apa_tinder < /Users/directory/to/dumpfile/apadump.sql`. Use the directory path for your sql dump file. To easily get the directory path information, you can drag and drop your sql dump file into the terminal. Next, import `super_dog_table.sql` to your MySQL, using the same procedure.
 
 ### 2. Model Backend setup
-1. Create `.env` file: Navigate to `src` folder. In terminal, type `touch .env`. In the `.env` file, populate the following variables with values. For example, for development and testing purposes, `DB_ENDPOINT=localhost`.
+1. Create `.env` file: Navigate to parent `src` folder. In terminal, type `touch .env`. In the `.env` file, populate the following variables with values. For example, for development and testing purposes, `DB_ENDPOINT=localhost`.
 ```
 DB_ENDPOINT=
 DB_USERNAME=
 DB_PASSWORD=
+JWT_TOKEN= # a private key. can be any string
 ```
 
 2. Navigate to `src/model-server` folder. To download required packages, in terminal run `pip install -r requirements.txt`.

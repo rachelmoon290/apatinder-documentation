@@ -69,11 +69,12 @@
 <div class="section" id="model-backend-setup">
 <h3>2. Model Backend setup<a class="headerlink" href="#model-backend-setup" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
-<li>Create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: Navigate to <code class="docutils literal notranslate"><span class="pre">src</span></code> folder. In terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate the following variables with values. For example, for development and testing purposes, <code class="docutils literal notranslate"><span class="pre">DB_ENDPOINT=localhost</span></code>.</li>
+<li>Create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: Navigate to parent <code class="docutils literal notranslate"><span class="pre">src</span></code> folder. In terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate the following variables with values. For example, for development and testing purposes, <code class="docutils literal notranslate"><span class="pre">DB_ENDPOINT=localhost</span></code>.</li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DB_ENDPOINT</span><span class="o">=</span>
 <span class="n">DB_USERNAME</span><span class="o">=</span>
 <span class="n">DB_PASSWORD</span><span class="o">=</span>
+<span class="n">JWT_TOKEN</span><span class="o">=</span> <span class="c1"># a private key. can be any string</span>
 </pre></div>
 </div>
 <ol class="simple">
