@@ -6,7 +6,7 @@
 
 
 ### 2. Problem Statement
-Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) working per day, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, about 26%
+Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) on site, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, the average waiting time is about 53 minutes per visitor, and consequently about 26% of on-site visitors cancel their appointment.
 
 APA Tinder for Dogs is a web application that enables adopters
 
@@ -41,7 +41,7 @@ DB_PASSWORD=
 JWT_TOKEN= # a private key. can be any string
 ```
 
-2. Navigate to `src/model-server` folder. To download required packages, in terminal run `pip install -r requirements.txt`.
+2. Download required packages: Navigate to `src/model-server` folder. In terminal run `pip install -r requirements.txt`.
 
 3. In terminal, type `./run.sh`. If the backend runs successfully, you will see `Running on localhost:xxxx` from the resulting message. In your web browser, navigate to `localhost:xxxx` to view a list of model backend REST API endpoints.
 
@@ -50,6 +50,8 @@ JWT_TOKEN= # a private key. can be any string
 2. Next, you need to run the web backend server (GraphQL). Navigate to `src/apa-match-server`. In terminal, run `yarn install`, and then run `yarn run dev`. Confirm that you get the message "listening on port yyyy."
 3. Now you will be running the web frontend. Navigate to `src/apa-match-client`. In terminal, run `yarn install`, and then run `yarn start`. Check the port number (zzzz) from the message. In the web browser, navigate to `localhost:zzzz` to view the web application.
 
+### 4. Jupyter notebook demo setup
+1. Download required packages: Navigate to `notebooks` folder. In terminal run `pip install -r requirements.txt`. If theano in pymc3 package causes problems, try `conda install theano pygpu`, or follow instructions in http://deeplearning.net/software/theano_versions/dev/install_macos.html.
 
 ## Dog Recommendation Model
 ### Data Cleaning
@@ -109,8 +111,11 @@ Random forest using gridsearchCV produced the best test set $R^2$ score, followe
 ### 2. User Swipes Model (Posterior Model)
 
 
+
+
+
 ## About Us
-We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone project class, and we have partnered with Austin Pets Alive! to work on this project.
+We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone project class, and we partnered with Austin Pets Alive! organization to work on this project.
 
 ## Acknowledgements
-We thank our course instructors, Dr.David Sondak and Patrick Ohimoba, for guidance and support. We also thank Steve Porter from Austin Pets Alive! for making it possible for us to work on this project.
+We would like to give special thanks to our capstone project instructors Dr. David Sondak and Patrick Ohiomoba, who guided our projects from beginning to end and were always super supportive. We also greatly thank Steve Porter, Director of Lifesaving Operations at Austin Pets Alive!, for partnering with our team and being very enthusiastic about this project and providing database.
