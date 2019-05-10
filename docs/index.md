@@ -61,14 +61,21 @@ The web serves two types of users: the adopters and the matchmakers (admin). Bel
 
 ### User journey: adopters
 
-
 ![](img/userjourney_adopter.png)
 
+When the users sign up, they will be asked to fill out several questions about their basic living environment information and animal preferences, and whether they are interested in fostering.
+
+In the main home page, there is a featured dog, who is randomly selected from the 50 longest-stay dogs currently in the shelter. The user can add the dog to my favorites lists.
+
+In the match page, the user can start getting matched to dogs. The recommendation model predicts the ranking for all available dogs in the shelter that match with the user's living environment conditions, and then gives 15 dogs as results. Out of 15 dogs, 10 dogs are the top ranked dogs, whereas the other 5 dogs are top ranked dogs from the long-stay dogs, so that even the long-stay dogs also have a chance to be shown to the users. After 15 swipes, the model then re-predicts the rankings on dogs not yet swiped, also incorporating previous user swipe behavior information. Pressing details button opens a new tab that shows dog details in the Austin Pets Alive! website. The favorited dogs list can be seen in the user's favorites page. 
 
 ### User journey: matchmakers
-The matchmakers can view the list of users who have signed up and used our application. They can also view specific user details, such as the user's environment condition, animal adoption preferences, and their favorited dog list. In the favorited dog list, the matchmakers are able to see the NLP generated summary of the dogs, and can also edit the summary if they wish.  
 
 ![](img/userjourney_matchmaker.png)
+
+The matchmakers can view the list of users who have signed up and used our application. They can also view specific user details, such as the user's environment condition, animal adoption preferences, and their favorited dog list. In the favorited dog list, the matchmakers are able to see the NLP generated summary of the dogs, and can also edit the summary if they wish.  
+
+
 
 ## Dog Recommendation Model
 ### Data Cleaning
@@ -97,7 +104,7 @@ Our team was given sql data from APA! that contains information about all dogs (
 20. IsBehaviorConsult
 21. DaysInShelter
 
-We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time insepcting 'AnimalColor' and 'AnimalBreed' columns, since they are important features when determining the popularity of dogs.
+We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time inspecting 'AnimalColor' and 'AnimalBreed' columns, since they are important features when determining the popularity of dogs.
 
 
 ### Feature Engineering
@@ -132,8 +139,7 @@ Random forest using gridsearchCV produced the best test set $R^2$ score, followe
 
 
 ## Summary
-In conclusion, we have a working web architecture that performs dog recommendations for potential adopters, .
-
+In conclusion, we have a working web architecture that performs dog recommendations for potential adopters
 
 Our web application will help improve dog adoption rate by recommending the right dogs that the adopters are more likely to adopt and keep. Furthermore, our application helps publicize even the dogs that have stayed long in the shelter, by featuring them on the main page as featured dogs, and
 
