@@ -43,7 +43,7 @@
 </div>
 <div class="section" id="problem-statement">
 <h3>2. Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
-<p>Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) working per day, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, about 26%</p>
+<p>Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) on site, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, the average waiting time is about 53 minutes per visitor, and consequently about 26% of on-site visitors cancel their appointment.</p>
 <p>APA Tinder for Dogs is a web application that enables adopters</p>
 <p>This project is part of Harvard’s AC297r Capstone Project course, partnered with APA!.</p>
 </div>
@@ -78,7 +78,7 @@
 </pre></div>
 </div>
 <ol class="simple">
-<li>Navigate to <code class="docutils literal notranslate"><span class="pre">src/model-server</span></code> folder. To download required packages, in terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</li>
+<li>Download required packages: Navigate to <code class="docutils literal notranslate"><span class="pre">src/model-server</span></code> folder. In terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</li>
 <li>In terminal, type <code class="docutils literal notranslate"><span class="pre">./run.sh</span></code>. If the backend runs successfully, you will see <code class="docutils literal notranslate"><span class="pre">Running</span> <span class="pre">on</span> <span class="pre">localhost:xxxx</span></code> from the resulting message. In your web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:xxxx</span></code> to view a list of model backend REST API endpoints.</li>
 </ol>
 </div>
@@ -88,6 +88,12 @@
 <li>Install yarn: in terminal, type <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">yarn</span></code>.</li>
 <li>Next, you need to run the web backend server (GraphQL). Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-server</span></code>. In terminal, run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code>, and then run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">run</span> <span class="pre">dev</span></code>. Confirm that you get the message “listening on port yyyy.”</li>
 <li>Now you will be running the web frontend. Navigate to <code class="docutils literal notranslate"><span class="pre">src/apa-match-client</span></code>. In terminal, run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">install</span></code>, and then run <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">start</span></code>. Check the port number (zzzz) from the message. In the web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:zzzz</span></code> to view the web application.</li>
+</ol>
+</div>
+<div class="section" id="jupyter-notebook-demo-setup">
+<h3>4. Jupyter notebook demo setup<a class="headerlink" href="#jupyter-notebook-demo-setup" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li>Download required packages: Navigate to <code class="docutils literal notranslate"><span class="pre">notebooks</span></code> folder. In terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>. If theano in pymc3 package causes problems, try <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">theano</span> <span class="pre">pygpu</span></code>, or follow instructions in http://deeplearning.net/software/theano_versions/dev/install_macos.html.</li>
 </ol>
 </div>
 </div>
@@ -145,13 +151,20 @@
 <h3>2. User Swipes Model (Posterior Model)<a class="headerlink" href="#user-swipes-model-posterior-model" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="future-work">
+<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a working web application architecture, the next step is to collect real user swipes data and get feedback from the app users to evaluate and improve recommendation model performance. Furthermore, we plan to continue developing the application to suit APA!’s needs and work on the application rollout.</p>
+</div>
 <div class="section" id="about-us">
 <h2>About Us<a class="headerlink" href="#about-us" title="Permalink to this headline">¶</a></h2>
-<p>We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone project class, and we have partnered with Austin Pets Alive! to work on this project.</p>
+<p>We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone project class, and we partnered with Austin Pets Alive! organization to work on this project.</p>
 </div>
 <div class="section" id="acknowledgements">
 <h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
-<p>We thank our course instructors, Dr.David Sondak and Patrick Ohimoba, for guidance and support. We also thank Steve Porter from Austin Pets Alive! for making it possible for us to work on this project.</p>
+<p>We would like to give special thanks to our capstone project instructors Dr. David Sondak and Patrick Ohiomoba, who guided our projects from beginning to end and were always super supportive. We also greatly thank Steve Porter, Director of Lifesaving Operations at Austin Pets Alive!, for partnering with our team and being very enthusiastic about our project.</p>
 </div>
 </div>
 
@@ -174,6 +187,7 @@
 <li><a class="reference internal" href="#mysql-installation">1. MySQL Installation</a></li>
 <li><a class="reference internal" href="#model-backend-setup">2. Model Backend setup</a></li>
 <li><a class="reference internal" href="#web-frontend-and-backend-setup">3. Web Frontend and Backend setup</a></li>
+<li><a class="reference internal" href="#jupyter-notebook-demo-setup">4. Jupyter notebook demo setup</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#dog-recommendation-model">Dog Recommendation Model</a><ul>
@@ -187,6 +201,8 @@
 <li><a class="reference internal" href="#user-swipes-model-posterior-model">2. User Swipes Model (Posterior Model)</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#future-work">Future Work</a></li>
 <li><a class="reference internal" href="#about-us">About Us</a></li>
 <li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
