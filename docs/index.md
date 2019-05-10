@@ -1,4 +1,4 @@
-# APA Tinder for Dogs Web Application
+# APA Tinder for Dogs
 
 ## About the project
 
