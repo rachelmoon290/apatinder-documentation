@@ -77,8 +77,13 @@ The matchmakers can view the list of users who have signed up and used our appli
 
 
 ## Dog Recommendation Model
+
+### Data
+
+### Exploratory Data Analysis
+
 ### Data Cleaning
-Our team was given sql data from APA! that contains information about all dogs (~30,000 dogs) in the shelter. There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 21 columns, as shown below.
+Our team was given sql dump data from APA! that contains information about all dogs (~30,000 dogs) that have entered APA! shelter. There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 21 columns, as shown below.
 
 
 1. AnimalSex
@@ -145,8 +150,11 @@ If the shelter visitors actually start using our matching application, it will r
 ## Future Work
 Now that we have a working web application architecture, the next step is to collect real user swipes data and get feedback from the app users in order to evaluate and improve recommendation model performance. We can conduct testing such as A/B testing in order to determine whether our model results in higher dog adoption rate than random selection model. Furthermore, we plan to continue developing the application to suit APA!'s needs and work on the application rollout.
 
+## References
+The references we used for our frontend, backend, and model can be found in `references` folder.
+
 ## About Us
-We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone project class, and we partnered with Austin Pets Alive! organization to work on this project.
+We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone Project course (https://harvard-iacs.github.io/2019-AC297rs/), and we partnered with Austin Pets Alive! organization to work on this project.
 
 ## Acknowledgements
-We would like to give special thanks to our capstone project instructors Dr. David Sondak and Patrick Ohiomoba, who guided our projects from beginning to end and were always super supportive. We also greatly thank Steve Porter, Director of Lifesaving Operations at Austin Pets Alive!, for partnering with our team and being very enthusiastic about our project.
+We would like to give special thanks to our capstone project instructors Dr. David Sondak and Patrick Ohiomoba, who guided our projects from beginning to end and always gave us helpful feedback. We also greatly thank Steve Porter, Director of Lifesaving Operations at Austin Pets Alive!, for partnering with our team and being very enthusiastic about our project and super supportive.
