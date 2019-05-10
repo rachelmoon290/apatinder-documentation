@@ -126,7 +126,7 @@ Instead of doing one-hot encoding for 40 different breeds, we manually created 4
 
 For other categorical columns like Animalsex, IsDistemper, IsCGC, etc, we performed one-hot encoding to make them ready for modeling. For continuous variables, we standardized them since different variables were at different scales.
 
-### 1. Dog Popularity Model (Prior Model)
+### 1. Prior Model
 
 The response variable for our analysis is 'DaysInShelter'. The goal of the prior model is to figure out the best model that predicts 'DaysInShelter' and deliever the best set of coefficients of predictor variables to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.
 
@@ -136,7 +136,7 @@ Random forest using gridsearchCV produced the best test set $R^2$ score, followe
 
 
 
-### 2. User Swipes Model (Posterior Model)
+### 2. User Swipes Model
 
 
 

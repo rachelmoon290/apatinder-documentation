@@ -93,7 +93,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -108,7 +108,7 @@ html_theme_options = {
     'vcs_pageview_mode': '',
     'style_nav_header_background': 'white',
     # Toc options
-    'collapse_navigation': True,
+    'collapse_navigation': False,
     'sticky_navigation': True,
     'navigation_depth': -1,
     'includehidden': True,
@@ -180,7 +180,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ac297r_project_directorydoc'
+htmlhelp_basename = 'ac297ac297r_apa_tinder_for_dogs'
 
 
 # -- Options for LaTeX output --------------------------------------------------
