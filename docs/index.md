@@ -36,12 +36,14 @@ This project is part of Harvard's AC297r Capstone Project course, partnered with
 
 ![](img/stack.png)
 
-1. The front end
+####1. The front end
+
 Our frontend code is written in ReactJS. We wanted our application to be maintainable, but also beautiful, so we selected the second most popular React UI framework, ANT Design. We used Typescipt in an effort to reduce the number of bugs. Types are a good thing. For the web backend, we used GraphQL, which eliminated the need for state management libraries and gave us more control of our Flask API endpoints, allowing us to improve the speed at which we could generate new dogs for users to swipe.
 
 All of the database updates are handled directly by the web backend. Our GraphQL virtual server is designed to run on the same EC2 instance as the Flask server, but the user table and the swipe table are updated directly by GraphQL, so no data is passing through Flask on its way to the database.
 
-2. The database
+####2. The database
+
 In theory, the MySQL database will eventually live in Amazon RDS and be updated at least once each day, if not in real time, as data is recorded about dogs. In practice, APA is still waiting for an RDS setup, so we have to make do with hosting our database locally.
 
 We added one table to the database, the super_dog_table. The code to generate this table lives in /src/model_server/sql/super_dog_table.sql
@@ -50,12 +52,23 @@ This code to generates a table that has one row per animal in the APA database. 
 
 ![](img/backend.png)
 
-3. The backend
-Our backend server is written in python Flask.
+####3. The backend
 
+Our backend server is written in python Flask. The Flask server is designed to run on the same EC2 instance as the GraphQL server. In the same way that GraphQL manages all of the database updates, Flask manages all of the database queries. For convenience, we have exposed several flask endpoints that will be useful for anyone who wants to modify that code or see what is happening in the database. In practice, the only endpoint that is ever called by GraphQL is the RecommendedList enpoint, which has path /model/results/<string:userId>. This endpoint takes a user id and returns a list of 15 dogs that the user has yet to swipe on. This is accomplished using the results of two predictive models as well as a number of database calls, including a call to the database to get the swipe history of the user and a call to the database to get the demographic and survey data of the user.
 
+There are three places to look if you want to modify our flask code. These are
+/src/model_server/__init__.py
+/src/model_server/functions.py
+/src/model_server/LaplaceModel.py
 
-4. Making the flask code faster
+We use a prior recommendation model that generates dog recommendations using the a historical dataset of dogs and adoptions, independent of particular users. The linear coefficients from this model are passed to a user swipes model that generates new dog rankings as users swipe on dogs on their phones. The swipes model runs in real time, but the prior model can take up to an hour to run. For this reason, use use a cron job to hit the NightTrain endpoint with path /model/night-train every night after the super_dog_table has finished updating.
+
+The combined run time of the super_dog_table script and the NightTrain endpoint mean that there is no way for us to get pass updated dog data to our models during the day. This is a curse and a blessing. Since we don't need to worry about updates to the data, we save data about our models as well as the dogs that are available each day to pickles file stored in /src/model_server/data. This eliminates any need to query the database for dog scores and dog information during the day and makes our code rubust to server crashes. Even if the server needs to restart, there is no reason to re-run the super_dog_table script or retrain the nightly prior model. Cron job setup is described below. Example code for the cron jobs lives in /src/model_server/cron/cron_backup
+
+If there is ever a desire to run the model and recommendation system for cats or other animals, it is easy to remove the filters that exclude them from the model and the results.
+
+####4. Making the flask code faster
+
 Running the code stored in LaplaceModel.py and returning a batch of 15 dogs to the frontend based on updated user swipe information currently takes less than a second. However, there are other modes of operation for LaplaceModel.py that are slightly slower and, after getting real swipe data from users and taking matchmaker feedback into account, in the future we may decide in the future that a different model would work better. We worked hard to ensure that all of the code would run in real time, but if this new model is running slowly, then there are still a few performance optimizations that could be added to the flask code to make the other step faster. 1) Timing each of the steps leads us to believe that one potential improvement would be to change the filtering code so that instead of pulling directly from the database, which currently accounts for the majority of the runtime, the filters could be directly applied to the display_data variable which is updated nightly and saved in a pickle. The code that would need to be updated lives in functions.py. Specifically, the filter fields would need to be added to the display_data variable as it is generated in NightlyModel.train(). From there, get_dogs_available() would need to either be removed or refactored so that it performed the filtering on the columns of the DataFrame instead of calling the database. 2) With 9 people all touching the same code, it is hard to enforce consistent code style and not everyone has the same experience with python. Our testing indicates that the fastest way to filter and match is using pandas dataframes with indexes. Much of the work of combining the separate pieces of code involved getting different data structures to talk to each other. We did our best to convert everything to DataFrames and add indexes, but there are still several parts that don't follow this convention. Especially in the code living in LaplaceModel.py and in the RecommendedList in __init__.py, there are still some examples of slower filtering operations. These could be standardized for a performance speedup. 3) If both recommendation 1 and 2 were implemented, then there would also be an opportunity to reduce the number of data structures in LaplaceModel.py. Right now, there are multiple sources of animal ids: animal ids from user swipes, the two nightly pickles, and those pulled from the database directly via the filtering operation. We suspect that we could reduce the overhead by reducing the number of operations where we merge animal ids.
 
 
