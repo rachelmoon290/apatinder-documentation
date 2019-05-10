@@ -14,7 +14,8 @@
 import os
 import sys
 
-html_theme = "sphinx_rtd_theme"
+html_theme = "classic"
+
 html_theme_options = {
     'canonical_url': '',
     'logo_only': False,
@@ -24,7 +25,7 @@ html_theme_options = {
     'vcs_pageview_mode': '',
     'style_nav_header_background': 'white',
     # Toc options
-    'collapse_navigation': False,
+    'collapse_navigation': True,
     'sticky_navigation': True,
     'navigation_depth': -1,
     'includehidden': True,
