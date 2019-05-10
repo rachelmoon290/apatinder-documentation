@@ -43,7 +43,7 @@
 </div>
 <div class="section" id="problem-statement">
 <h3>2. Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
-<p>Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) on site, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, the average waiting time is about 53 minutes per visitor, and consequently about 26% of on-site visitors cancel their appointment.</p>
+<p>Every day at Austin Pets Alive!, there are about 40 people who visit the shelter to look for animals to adopt. However, there are only maximum 4 matchmakers on site each day, and it takes about 30 minutes to an hour for a matchmaker to talk to each visitor and match him/her with the best dogs. As a result, the average waiting time is about 53 minutes per visitor, and consequently about 26% of on-site visitors cancel or do not show up to their appointment, due to this bottleneck effect.</p>
 <p>APA Tinder for Dogs is a web application that enables adopters</p>
 <p>This project is part of Harvard’s AC297r Capstone Project course, partnered with APA!.</p>
 </div>
@@ -95,6 +95,18 @@
 <ol class="simple">
 <li>Download required packages: Navigate to <code class="docutils literal notranslate"><span class="pre">notebooks</span></code> folder. In terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>. If theano in pymc3 package causes problems, try <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">theano</span> <span class="pre">pygpu</span></code>, or follow instructions in http://deeplearning.net/software/theano_versions/dev/install_macos.html.</li>
 </ol>
+</div>
+</div>
+<div class="section" id="web-interface">
+<h2>Web Interface<a class="headerlink" href="#web-interface" title="Permalink to this headline">¶</a></h2>
+<p>The web serves two types of users: the adopters and the matchmakers (admin). Below we explain the current functionalities of our web application.</p>
+<div class="section" id="user-journey-adopters">
+<h3>User journey: adopters<a class="headerlink" href="#user-journey-adopters" title="Permalink to this headline">¶</a></h3>
+<p><img alt="_images/userjourney_adopter.png" src="_images/userjourney_adopter.png" /></p>
+</div>
+<div class="section" id="user-journey-matchmakers">
+<h3>User journey: matchmakers<a class="headerlink" href="#user-journey-matchmakers" title="Permalink to this headline">¶</a></h3>
+<p>The matchmakers can view the list of users who have signed up and used our application. They can also view specific user details, such as the user’s environment condition, animal adoption preferences, and their favorited dog list. In the favorited dog list, the matchmakers are able to see the NLP generated summary of the dogs, and can also edit the summary if they wish.</p>
 </div>
 </div>
 <div class="section" id="dog-recommendation-model">
@@ -153,10 +165,12 @@
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>In conclusion, we have a working web architecture that performs dog recommendations for potential adopters, .</p>
+<p>Our web application will help improve dog adoption rate by recommending the right dogs that the adopters are more likely to adopt and keep. Furthermore, our application helps publicize even the dogs that have stayed long in the shelter, by featuring them on the main page as featured dogs, and</p>
 </div>
 <div class="section" id="future-work">
 <h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have a working web application architecture, the next step is to collect real user swipes data and get feedback from the app users to evaluate and improve recommendation model performance. Furthermore, we plan to continue developing the application to suit APA!’s needs and work on the application rollout.</p>
+<p>Now that we have a working web application architecture, the next step is to collect real user swipes data and get feedback from the app users in order to evaluate and improve recommendation model performance. We can conduct testing such as A/B testing in order to determine whether our model results in higher dog adoption rate than random selection model. Furthermore, we plan to continue developing the application to suit APA!’s needs and work on the application rollout.</p>
 </div>
 <div class="section" id="about-us">
 <h2>About Us<a class="headerlink" href="#about-us" title="Permalink to this headline">¶</a></h2>
@@ -188,6 +202,11 @@
 <li><a class="reference internal" href="#model-backend-setup">2. Model Backend setup</a></li>
 <li><a class="reference internal" href="#web-frontend-and-backend-setup">3. Web Frontend and Backend setup</a></li>
 <li><a class="reference internal" href="#jupyter-notebook-demo-setup">4. Jupyter notebook demo setup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#web-interface">Web Interface</a><ul>
+<li><a class="reference internal" href="#user-journey-adopters">User journey: adopters</a></li>
+<li><a class="reference internal" href="#user-journey-matchmakers">User journey: matchmakers</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#dog-recommendation-model">Dog Recommendation Model</a><ul>

@@ -62,10 +62,13 @@ The web serves two types of users: the adopters and the matchmakers (admin). Bel
 ### User journey: adopters
 
 
+![](img/userjourney_adopter.png)
+
 
 ### User journey: matchmakers
 The matchmakers can view the list of users who have signed up and used our application. They can also view specific user details, such as the user's environment condition, animal adoption preferences, and their favorited dog list. In the favorited dog list, the matchmakers are able to see the NLP generated summary of the dogs, and can also edit the summary if they wish.  
 
+![](img/userjourney_matchmaker.png)
 
 ## Dog Recommendation Model
 ### Data Cleaning

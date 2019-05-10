@@ -6,13 +6,15 @@
 
 
 ### 2. Problem Statement
-Every day at Austin Pets Alive!, there are ~40 people visiting the shelter to look for animals to adopt. However, there are only 3~4 matchmakers (volunteers who match people with animals) on site, and it takes about 30 minutes to an hour for a matchmaker to talk to each person. As a result, the average waiting time is about 53 minutes per visitor, and consequently about 26% of on-site visitors cancel their appointment.
+Every day at Austin Pets Alive!, there are about 40 people who visit the shelter to look for animals to adopt. However, there are only maximum 4 matchmakers on site each day, and it takes about 30 minutes to an hour for a matchmaker to talk to each visitor and match him/her with the best dogs. As a result, the average waiting time is about 53 minutes per visitor, and consequently about 26% of on-site visitors cancel or do not show up to their appointment, due to this bottleneck effect.
 
 APA Tinder for Dogs is a web application that enables adopters
 
 This project is part of Harvard's AC297r Capstone Project course, partnered with APA!.
 
 ### 3. Web Architecture
+
+
 
 ## Installation and setup (MacOS)
 Please follow these steps below to install and set up all the necessary components to run our web application in a production environment.
@@ -52,6 +54,20 @@ JWT_TOKEN= # a private key. can be any string
 
 ### 4. Jupyter notebook demo setup
 1. Download required packages: Navigate to `notebooks` folder. In terminal run `pip install -r requirements.txt`. If theano in pymc3 package causes problems, try `conda install theano pygpu`, or follow instructions in http://deeplearning.net/software/theano_versions/dev/install_macos.html.
+
+
+## Web Interface
+The web serves two types of users: the adopters and the matchmakers (admin). Below we explain the current functionalities of our web application.
+
+### User journey: adopters
+
+
+![](img/userjourney_adopter.png)
+
+
+### User journey: matchmakers
+The matchmakers can view the list of users who have signed up and used our application. They can also view specific user details, such as the user's environment condition, animal adoption preferences, and their favorited dog list. In the favorited dog list, the matchmakers are able to see the NLP generated summary of the dogs, and can also edit the summary if they wish.  
+
 
 ## Dog Recommendation Model
 ### Data Cleaning
@@ -112,12 +128,17 @@ Random forest using gridsearchCV produced the best test set $R^2$ score, followe
 
 
 
-## Summary
 
+
+## Summary
+In conclusion, we have a working web architecture that performs dog recommendations for potential adopters, .
+
+
+Our web application will help improve dog adoption rate by recommending the right dogs that the adopters are more likely to adopt and keep. Furthermore, our application helps publicize even the dogs that have stayed long in the shelter, by featuring them on the main page as featured dogs, and
 
 
 ## Future Work
-Now that we have a working web application architecture, the next step is to collect real user swipes data and get feedback from the app users to evaluate and improve recommendation model performance. Furthermore, we plan to continue developing the application to suit APA!'s needs and work on the application rollout. 
+Now that we have a working web application architecture, the next step is to collect real user swipes data and get feedback from the app users in order to evaluate and improve recommendation model performance. We can conduct testing such as A/B testing in order to determine whether our model results in higher dog adoption rate than random selection model. Furthermore, we plan to continue developing the application to suit APA!'s needs and work on the application rollout.
 
 ## About Us
 We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone project class, and we partnered with Austin Pets Alive! organization to work on this project.
