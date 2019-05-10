@@ -79,12 +79,34 @@ The matchmakers can view the list of users who have signed up and used our appli
 
 ## Dog Recommendation Model
 
+APA! would like to know popularity of each dog, so that when potential adopters visit APA!, they can see popular dogs based on their preferences. This will reduce the time adopters spend in APA! finding right dogs for them. 
+
+For the modeling perspective, we are given two tasks: to predict popularity of each dog and to know the user preferences. Dog recommendation model is used to predict popularity of each dog. 
+
 ### Data
+Our team was given sql dump data from APA! that contains information about all dogs (~30,000 dogs) that have entered APA! shelter. The sql file had 20 different tables. We looked into each table and decided to use 8 tables relevant to our data analysis. We joined 8 tables to create the master table that consists of 28,561 rows and 147 columns.
 
 ### Exploratory Data Analysis
+The response variable for dog recommendation model is days in custody. We performed exploratory data analysis so the relationship between days in custody and other predictor variables. 
+
+![](img/eda1.png)
+
+Puppies have low values of average days in custody, meaning that they are popular. 
+
+![](img/eda2.png)
+
+Small size dogs are preferred over larger size dogs.
+
+![](img/eda3.png)
+
+Pitbulls are not popular, whereas other breeds such as Shepherd, Retriever, and Terrier are popular.
+
+![](img/eda4.png)
+
+Sick dogs tend to stay larger in the shleter.
 
 ### Data Cleaning
-Our team was given sql dump data from APA! that contains information about all dogs (~30,000 dogs) that have entered APA! shelter. There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 21 columns, as shown below.
+There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 21 columns, as shown below.
 
 
 1. AnimalSex
@@ -132,6 +154,8 @@ For other categorical columns like Animalsex, IsDistemper, IsCGC, etc, we perfor
 The response variable for our analysis is 'DaysInShelter'. The goal of the prior model is to figure out the best model that predicts 'DaysInShelter' and deliever the best set of coefficients of predictor variables to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.
 
 In order to find the best model, we have tried linear regression without polynomial terms, linear regression with polynomial degree 3 for 'AgeAtIntake', lassoCV with polynomial degree 3 for 'AgeAtIntake', ridgeCV with polynomial degree 3 for 'AgeAtIntake', and random forest using gridsearchCV. Expecting that 'AgeAtIntake' has a positive correlation with 'DaysInShelter', we would like to find out a non-linear relationship between 'AgeAtIntake' and 'DaysInShelter', by taking polynomial degree 3 for 'AgeAtIntake'.
+
+![](img/prior_scores.png)
 
 Random forest using gridsearchCV produced the best test set $R^2$ score, followed by ridgeCV with polynomial degree 3 for 'AgeAtIntake'. We decided to use ridgeCV, since ridge regression provides values of coefficients that can be used as coefficients for the posterior model and the performance of the ridge regression model was nearly as good as the random forest model.
 
