@@ -36,12 +36,13 @@ Please follow these steps below to install and set up all the necessary componen
 
 ### 2. Model Backend setup
 1. Create `.env` file: Navigate to parent `src` folder. In terminal, type `touch .env`. In the `.env` file, populate the following variables with values. For example, for development and testing purposes, `DB_ENDPOINT=localhost`.
-```
-DB_ENDPOINT=
-DB_USERNAME=
-DB_PASSWORD=
-JWT_TOKEN= # a private key. can be any string
-```
+
+    ```
+    DB_ENDPOINT=
+    DB_USERNAME=
+    DB_PASSWORD=
+    JWT_TOKEN= # a private key. can be any string
+    ```
 
 2. Download required packages: Navigate to `src/model-server` folder. In terminal run `pip install -r requirements.txt`.
 

@@ -68,18 +68,19 @@
 </div>
 <div class="section" id="model-backend-setup">
 <h3>2. Model Backend setup<a class="headerlink" href="#model-backend-setup" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li>Create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: Navigate to parent <code class="docutils literal notranslate"><span class="pre">src</span></code> folder. In terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate the following variables with values. For example, for development and testing purposes, <code class="docutils literal notranslate"><span class="pre">DB_ENDPOINT=localhost</span></code>.</li>
-</ol>
+<ol>
+<li><p class="first">Create <code class="docutils literal notranslate"><span class="pre">.env</span></code> file: Navigate to parent <code class="docutils literal notranslate"><span class="pre">src</span></code> folder. In terminal, type <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">.env</span></code>. In the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file, populate the following variables with values. For example, for development and testing purposes, <code class="docutils literal notranslate"><span class="pre">DB_ENDPOINT=localhost</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DB_ENDPOINT</span><span class="o">=</span>
 <span class="n">DB_USERNAME</span><span class="o">=</span>
 <span class="n">DB_PASSWORD</span><span class="o">=</span>
 <span class="n">JWT_TOKEN</span><span class="o">=</span> <span class="c1"># a private key. can be any string</span>
 </pre></div>
 </div>
-<ol class="simple">
-<li>Download required packages: Navigate to <code class="docutils literal notranslate"><span class="pre">src/model-server</span></code> folder. In terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</li>
-<li>In terminal, type <code class="docutils literal notranslate"><span class="pre">./run.sh</span></code>. If the backend runs successfully, you will see <code class="docutils literal notranslate"><span class="pre">Running</span> <span class="pre">on</span> <span class="pre">localhost:xxxx</span></code> from the resulting message. In your web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:xxxx</span></code> to view a list of model backend REST API endpoints.</li>
+</li>
+<li><p class="first">Download required packages: Navigate to <code class="docutils literal notranslate"><span class="pre">src/model-server</span></code> folder. In terminal run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</p>
+</li>
+<li><p class="first">In terminal, type <code class="docutils literal notranslate"><span class="pre">./run.sh</span></code>. If the backend runs successfully, you will see <code class="docutils literal notranslate"><span class="pre">Running</span> <span class="pre">on</span> <span class="pre">localhost:xxxx</span></code> from the resulting message. In your web browser, navigate to <code class="docutils literal notranslate"><span class="pre">localhost:xxxx</span></code> to view a list of model backend REST API endpoints.</p>
+</li>
 </ol>
 </div>
 <div class="section" id="web-frontend-and-backend-setup">
