@@ -125,23 +125,34 @@ There were 1969 unique animal breeds for around 30,000 dogs in our data, where a
 
 Instead of doing one-hot encoding for 40 different breeds, we manually created 40 new columns indicating whether each dog contains each breed - IsDachshund, IsBeagle, IsBulldog, etc. For example if the breed of a dog is Beagle/Bulldog, it will have values 1 for IsBeagle and IsBulldog columns, and 0 for the other columns. Again, if we used one-hot encoding, this dog would have had a value 1 for only IsBeagle or IsBulldog column and 0 for the rest of columns, so it is not an accurate representation of our data.  
 
-For other categorical columns like Animalsex, IsDistemper, IsCGC, etc, we performed one-hot encoding to make them ready for modeling. For continuous variables, we standardized them since different variables were at different scales.
+For other categorical columns like AnimalSex, IsDistemper, IsCGC, etc, we performed one-hot encoding to make them ready for modeling. For continuous variables, we standardized them since different variables were at different scales.
 
 ### 1. Prior Model
 
-The response variable for our analysis is 'DaysInShelter'. The goal of the prior model is to figure out the best model that predicts 'DaysInShelter' and deliever the best set of coefficients of predictor variables to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.
+The response variable for our analysis is 'DaysInShelter'. The goal of the prior model is to figure out the best model that predicts 'DaysInShelter' and deliver the best set of coefficients of predictor variables to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.
 
 In order to find the best model, we have tried linear regression without polynomial terms, linear regression with polynomial degree 3 for 'AgeAtIntake', lassoCV with polynomial degree 3 for 'AgeAtIntake', ridgeCV with polynomial degree 3 for 'AgeAtIntake', and random forest using gridsearchCV. Expecting that 'AgeAtIntake' has a positive correlation with 'DaysInShelter', we would like to find out a non-linear relationship between 'AgeAtIntake' and 'DaysInShelter', by taking polynomial degree 3 for 'AgeAtIntake'.
 
 Random forest using gridsearchCV produced the best test set $R^2$ score, followed by ridgeCV with polynomial degree 3 for 'AgeAtIntake'. We decided to use ridgeCV, since ridge regression provides values of coefficients that can be used as coefficients for the posterior model and the performance of the ridge regression model was nearly as good as the random forest model.
 
+Notebook demo can be found in: https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/apa_cleaning_prior_model.ipynb
 
 
 ### 2. User Swipes Model
 
+The goal of this model is to take in a user's swiping behavior and work out what features prefer in a dog and prioritize showing them matching dogs.
+Bayesian Logistic regression is well-suited to this task. We begin by encoding everything we know about a user as they walk in the door (a sort of average-user stereotype) and then refine that impression as the user swipes. Our initial impression is given by the above model: we can get a reasonable idea of which features are popular from APA's historical data. The updates then factor in the user's swipes while keeping in mind the sorts of preferences that seem likely from the historical data.
+Each night, we update our view of what preferences someone walking in the door may have. Presently, we re-run the Prior Model on the now-larger historical data. As user swipes become available, this can expand to a hierarchical model that factors in the observed swipe histories.
+Since Bayesian Logistic Regression doesn't have a closed-form solution and standard techniques are too slow at updating to user's swipes, we've implemented a very fast approximation to the full solution.  This model updates in under 1/10th of a second, meaning users see very little lag while we discover new dogs for them to swipe on.
+
+Notebook demo can be found in:
+https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Project%20Model%20Implementation%20and%20Testing.ipynb
+
+https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Laplace%20Logistic%20Regression%20Model.ipynb
 
 
-
+### Embedding model
+Borrowing some ideas from autoencoders, we also explored a novel way of performing data reduction. It is conceptually similar to PCA, but where PCA doesn't take account of the y variable, this method finds the linear combination of features (under a specific model) that best predict outcomes. We expect this approach to become a valuable pre-processing technique as user swipe data becomes avaiable. At present we find an essentially lossless 2d embedding of the data for the purpose of predicting length of stay, but there are artifacts indicating that we'd lose information relevant to predicting swiping behavior instead of length of stay.
 
 ## Summary
 In conclusion, we have a working web architecture that performs dog recommendations for potential adopters. Our web application will help improve dog adoption rate by recommending the right dogs that the adopters are more likely to adopt. Furthermore, our application helps publicize even the dogs that have stayed long in the shelter by featuring them on the main page, as well as matching users with long-stay dogs with highest ranking.
