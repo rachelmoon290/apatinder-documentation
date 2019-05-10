@@ -223,7 +223,7 @@ In order to find the best model, we have tried linear regression without polynom
 
 Random forest using gridsearchCV produced the best test set $R^2$ score, followed by ridgeCV with polynomial degree 3 for 'AgeAtIntake'. We decided to use ridgeCV, since ridge regression provides values of coefficients that can be used as coefficients for the posterior model and the performance of the ridge regression model was nearly as good as the random forest model.
 
-Notebook demo can be found in: https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/apa_cleaning_prior_model.ipynb
+Notebook demo can be found [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/apa_cleaning_prior_model.ipynb).
 
 
 ### 2. User Swipes Model
@@ -233,10 +233,8 @@ Bayesian Logistic regression is well-suited to this task. We begin by encoding e
 Each night, we update our view of what preferences someone walking in the door may have. Presently, we re-run the Prior Model on the now-larger historical data. As user swipes become available, this can expand to a hierarchical model that factors in the observed swipe histories.
 Since Bayesian Logistic Regression doesn't have a closed-form solution and standard techniques are too slow at updating to user's swipes, we've implemented a very fast approximation to the full solution.  This model updates in under 1/10th of a second, meaning users see very little lag while we discover new dogs for them to swipe on.
 
-Notebook demo can be found in:
-https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Project%20Model%20Implementation%20and%20Testing.ipynb
+Notebook demo can be found [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Project%20Model%20Implementation%20and%20Testing.ipynb) and [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Laplace%20Logistic%20Regression%20Model.ipynb).
 
-https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Laplace%20Logistic%20Regression%20Model.ipynb
 
 
 ### Embedding model
@@ -254,7 +252,7 @@ Now that we have a working web application architecture, the next step is to col
 The references we used for our frontend, backend, and model can be found in `references` folder.
 
 ## About Us
-We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of AC297r: Capstone Project course (https://harvard-iacs.github.io/2019-AC297rs/), and we partnered with Austin Pets Alive! organization to work on this project.
+We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of [AC297r: Capstone Project course](https://harvard-iacs.github.io/2019-AC297rs/)), and we partnered with Austin Pets Alive! organization to work on this project.
 
 ## Acknowledgements
 We would like to give special thanks to our capstone project instructors Dr. David Sondak and Patrick Ohiomoba, who guided our projects from beginning to end and always gave us helpful feedback. We also greatly thank Steve Porter, Director of Lifesaving Operations at Austin Pets Alive!, for partnering with our team and being very enthusiastic about our project and super supportive.
