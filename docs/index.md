@@ -75,6 +75,11 @@ Running the code stored in `LaplaceModel.py` and returning a batch of 15 dogs to
 
 Example code for the cron jobs lives in `/src/model_server/cron/cron_backup`
 
+I used the following tutorial to set up cron jobs on our local machines as we were developing the project:
+[https://www.taniarascia.com/setting-up-a-basic-cron-job-in-linux/](https://www.taniarascia.com/setting-up-a-basic-cron-job-in-linux/).
+
+Essential it boils down to running `crontab -l` to make sure the cron is installed then running `crontab -e` to create and edit a new job. You can copy and paste the code at the top of `/src/model_server/cron/cron_backup`, but for testing I recommend using the testing code I left at the bottom of the file instead. The main difference is that the test examples use the `* * * * *` (run every minute) option so you can see that they are working while the real jobs run using the `0 3 * * *` (3am), `30 3 * * *` (3:30am) or `0 4 * * *` (4am). You may need to double check that the curl directory path is the same on the EC2 instance.  
+
 ## Installation and setup (MacOS)
 Please follow these steps below to install and set up all the necessary components to run our web application in a production environment.
 
