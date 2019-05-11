@@ -3,9 +3,7 @@
 ## About the project
 
 ### 1. Introduction
-Austin Pets Alive! is a nationwide leading no-kill animal shelter with 97% animal save rate.
-
-Austin Pets Alive! would like to save as many shelter animals as possible through adoption. However, with the limited number of matchmakers on site who can connect shelter visitors with animals, about 26% of the visitors cancel their appointments due to a long wait. To reduce the wait time and keep the waiting visitors engaged, we built a web application that recommends dogs based on the adopter’s living conditions, predicted popularity of the dogs, and user swipes behavior.
+Austin Pets Alive! is a nationwide leading no-kill animal shelter with 97% animal save rate, and would like to save as many shelter animals as possible through adoption. However, with the limited number of matchmakers on site who can connect shelter visitors with animals, about 26% of the visitors cancel their appointments due to a long wait. To reduce the wait time and keep the waiting visitors engaged, we built a web application that recommends dogs based on the adopter’s living conditions, predicted popularity of the dogs, and user swipes behavior.
 
 Our solution is a mobile web application that...
 1. Connects adopters and matchmakers
@@ -22,37 +20,27 @@ The final deliverable for the project was a web application for adopters and mat
 
 We want to get as many dogs as possible adopted, we want to give users something to do while they wait, and we don't want to disappoint people by showing them dogs that wouldn't be right for their living situation. We hope that our app can be a fun distraction for users and make the matchmaker's job a little easier by giving them an idea of what dogs someone might be interested in seeing.
 
-### 2. Problem Statement
-Every day at Austin Pets Alive!, there are about 40 people who visit the shelter to look for animals to adopt. However, there are only maximum 4 matchmakers on site each day, and it takes about 30 minutes to an hour for a matchmaker to talk to each visitor and match him/her with the best dogs. As a result, the average waiting time is about 53 minutes per visitor, and consequently about 26% of on-site visitors cancel or do not show up to their appointment, due to this bottleneck effect. If visitors don’t cancel their appointments, up to 10 more animals could get adopted each day.
-
-APA Tinder for Dogs is a mobile web application that...
-1. Connects adopters and matchmakers
-2. Recommends right dogs to adopters
-3. Engages waiting adopters
-
-This project is part of Harvard's AC297r Capstone Project course, partnered with APA!.
-
-### 3. Web Architecture
+### 2. Web Architecture
 
 ![](img/stack.png)
 
-#### 1. The front end
+#### A. The frontend
 
-Our frontend code is written in ReactJS. We wanted our application to be maintainable, but also beautiful, so we selected the second most popular React UI framework, ANT Design. We used Typescipt in an effort to reduce the number of bugs. Types are a good thing. For the web backend, we used GraphQL, which eliminated the need for state management libraries and gave us more control of our Flask API endpoints, allowing us to improve the speed at which we could generate new dogs for users to swipe.
+Our frontend code is written in ReactJS. We wanted our application to be maintainable, but also beautiful, so we selected the second most popular React UI framework, ANT Design. We used Typescript in an effort to reduce the number of bugs. Types are a good thing. For the web backend, we used GraphQL, which eliminated the need for state management libraries and gave us more control of our Flask API endpoints, allowing us to improve the speed at which we could generate new dogs for users to swipe.
 
 All of the database updates are handled directly by the web backend. Our GraphQL virtual server is designed to run on the same EC2 instance as the Flask server, but the user table and the swipe table are updated directly by GraphQL, so no data is passing through Flask on its way to the database.
 
-#### 2. The database
+#### B. The database
 
 In theory, the MySQL database will eventually live in Amazon RDS and be updated at least once each day, if not in real time, as data is recorded about dogs. In practice, APA is still waiting for an RDS setup, so we have to make do with hosting our database locally.
 
 We added one table to the database, the `super_dog_table`. The code to generate this table lives in `/src/model_server/sql/super_dog_table.sql`
 
-This code to generates a table that has one row per animal in the APA database. We use the AnimalInternal-ID as the primary key to enforce this rule. Selecting the the latest scores for each animal and then joining them to the rest of the data for that animal is a time consuming operation, and the code to generate the `super_dog_table` can run for up to an hour before completing. We considered storing this data as a MySQL view so that we could query it in real time, but the execution time for the script makes that impossible. For this reason, we have set up the code so that the `super_dog_table` is refreshed every night at 3am by a cron job. Once RDS is up an running, our cron job as well as the others that we have added will need to be set up on the appropriate severs, as we describe below. Example code for the cron jobs lives in `/src/model_server/cron/cron_backup`
+This code to generates a table that has one row per animal in the APA database. We use the AnimalInternal-ID as the primary key to enforce this rule. Selecting the the latest scores for each animal and then joining them to the rest of the data for that animal is a time consuming operation, and the code to generate the `super_dog_table` can run for up to an hour before completing. We considered storing this data as a MySQL view so that we could query it in real time, but the execution time for the script makes that impossible. For this reason, we have set up the code so that the `super_dog_table` is refreshed every night at 3am by a cron job. Once RDS is up an running, our cron job as well as the others that we have added will need to be set up on the appropriate severs, as we describe below. Example code for the cron jobs lives in `/src/model_server/cron/cron_backup`.
 
 ![](img/backend.png)
 
-#### 3. The backend
+#### C. The backend
 
 Our backend server is written in python Flask. The Flask server is designed to run on the same EC2 instance as the GraphQL server. In the same way that GraphQL manages all of the database updates, Flask manages all of the database queries. For convenience, we have exposed several flask endpoints that will be useful for anyone who wants to modify that code or see what is happening in the database. In practice, the only endpoint that is ever called by GraphQL is the RecommendedList endpoint, which has path `/model/results/<string:userId>`. This endpoint takes a user id and returns a list of 15 dogs that the user has yet to swipe on. This is accomplished using the results of two predictive models as well as a number of database calls, including a call to the database to get the swipe history of the user and a call to the database to get the demographic and survey data of the user.
 
@@ -67,13 +55,19 @@ The combined run time of the `super_dog_table` script and the NightTrain endpoin
 
 If there is ever a desire to run the model and recommendation system for cats or other animals, it is easy to remove the filters that exclude them from the model and the results.
 
-#### 4. Making the flask code faster
+#### D. Making the flask code faster
 
-Running the code stored in `LaplaceModel.py` and returning a batch of 15 dogs to the frontend based on updated user swipe information currently takes less than a second. However, there are other modes of operation for `LaplaceModel.py` that are slightly slower and, after getting real swipe data from users and taking matchmaker feedback into account, in the future we may decide in the future that a different model would work better. We worked hard to ensure that all of the code would run in real time, but if this new model is running slowly, then there are still a few performance optimizations that could be added to the flask code to make the other step faster. 1) Timing each of the steps leads us to believe that one potential improvement would be to change the filtering code so that instead of pulling directly from the database, which currently accounts for the majority of the runtime, the filters could be directly applied to the display_data variable which is updated nightly and saved in a pickle. The code that would need to be updated lives in `functions.py`. Specifically, the filter fields would need to be added to the display_data variable as it is generated in NightlyModel.train(). From there, get_dogs_available() would need to either be removed or refactored so that it performed the filtering on the columns of the DataFrame instead of calling the database. 2) With 9 people all touching the same code, it is hard to enforce consistent code style and not everyone has the same experience with python. Our testing indicates that the fastest way to filter and match is using pandas dataframes with indexes. Much of the work of combining the separate pieces of code involved getting different data structures to talk to each other. We did our best to convert everything to DataFrames and add indexes, but there are still several parts that don't follow this convention. Especially in the code living in `LaplaceModel.py` and in the RecommendedList in `__init__.py`, there are still some examples of slower filtering operations. These could be standardized for a performance speedup. 3) If both recommendation 1 and 2 were implemented, then there would also be an opportunity to reduce the number of data structures in `LaplaceModel.py`. Right now, there are multiple sources of animal ids: animal ids from user swipes, the two nightly pickles, and those pulled from the database directly via the filtering operation. We suspect that we could reduce the overhead by reducing the number of operations where we merge animal ids.
+Running the code stored in `LaplaceModel.py` and returning a batch of 15 dogs to the frontend based on updated user swipe information currently takes less than a second. However, there are other modes of operation for `LaplaceModel.py` that are slightly slower and, after getting real swipe data from users and taking matchmaker feedback into account, in the future we may decide in the future that a different model would work better. We worked hard to ensure that all of the code would run in real time, but if this new model is running slowly, then there are still a few performance optimizations that could be added to the flask code to make the other step faster.
 
-#### 5. Cron job setup
+1) Timing each of the steps leads us to believe that one potential improvement would be to change the filtering code so that instead of pulling directly from the database, which currently accounts for the majority of the runtime, the filters could be directly applied to the display_data variable which is updated nightly and saved in a pickle. The code that would need to be updated lives in `functions.py`. Specifically, the filter fields would need to be added to the display_data variable as it is generated in NightlyModel.train(). From there, get_dogs_available() would need to either be removed or refactored so that it performed the filtering on the columns of the DataFrame instead of calling the database.
 
-Example code for the cron jobs lives in `/src/model_server/cron/cron_backup`
+2) With 9 people all touching the same code, it is hard to enforce consistent code style and not everyone has the same experience with python. Our testing indicates that the fastest way to filter and match is using pandas dataframes with indexes. Much of the work of combining the separate pieces of code involved getting different data structures to talk to each other. We did our best to convert everything to DataFrames and add indexes, but there are still several parts that don't follow this convention. Especially in the code living in `LaplaceModel.py` and in the RecommendedList in `__init__.py`, there are still some examples of slower filtering operations. These could be standardized for a performance speedup.
+
+3) If both recommendation 1 and 2 were implemented, then there would also be an opportunity to reduce the number of data structures in `LaplaceModel.py`. Right now, there are multiple sources of animal ids: animal ids from user swipes, the two nightly pickles, and those pulled from the database directly via the filtering operation. We suspect that we could reduce the overhead by reducing the number of operations where we merge animal ids.
+
+#### E. Cron job setup
+
+Example code for the cron jobs lives in `/src/model_server/cron/cron_backup`.
 
 I used the following tutorial to set up cron jobs on our local machines as we were developing the project:
 [https://www.taniarascia.com/setting-up-a-basic-cron-job-in-linux/](https://www.taniarascia.com/setting-up-a-basic-cron-job-in-linux/).
@@ -96,7 +90,7 @@ Please follow these steps below to install and set up all the necessary componen
 
 6. **Create database:** In MySQL, type `CREATE DATABASE apa_tinder;`. `apa_tinder` is the name of the database. Then type `USE apa_tinder;` to start using `apa_tinder` database.
 
-7. **Import sql files into MySQL:** We used sql dump file from APA! to build and test our web application. To import the dump file into your local MySQL, in the terminal (not in MySQL) type `mysql -u root -p apa_tinder < /Users/directory/to/dumpfile/apadump.sql`. Use the directory path for your sql dump file. To easily get the directory path information, you can drag and drop your sql dump file into the terminal. Next, import ``super_dog_table`.sql` to your MySQL, using the same procedure.
+7. **Import sql files into MySQL:** We used sql dump file from APA! to build and test our web application. To import the dump file into your local MySQL, in the terminal (not in MySQL) type `mysql -u root -p apa_tinder < /Users/directory/to/dumpfile/apadump.sql`. Use the directory path for your sql dump file. To easily get the directory path information, you can drag and drop your sql dump file into the terminal. Next, import `super_dog_table.sql` to your MySQL, using the same procedure.
 
 ### 2. Model Backend setup
 1. Create `.env` file: Navigate to parent `src` folder. In terminal, type `touch .env`. In the `.env` file, populate the following variables with values. For example, for development and testing purposes, `DB_ENDPOINT=localhost`.
@@ -142,20 +136,13 @@ The matchmakers can view the list of users who have signed up and used our appli
 
 
 ## Dog Recommendation Model
-
-APA! would like to know popularity of each dog, so that when potential adopters visit APA!, they can see popular dogs based on their preferences. This will reduce the time adopters spend in APA! finding right dogs for them.
-
-For the modeling perspective, we are given two tasks: to predict popularity of each dog and to know the user preferences. Dog recommendation model is used to predict popularity of each dog.
+Our dog recommendation model aims to first present the users with dogs that are predicted to be popular in general, and then use their swipe behavior to update the rankings based on their preferences.
 
 ### Data
 Our team was given sql dump data from APA! that contains information about all dogs (~30,000 dogs) that have entered APA! shelter. The sql file had 20 different tables. We looked into each table and decided to use 8 tables relevant to our data analysis. We joined 8 tables to create the master table that consists of 28,561 rows and 147 columns.
 
 ### Exploratory Data Analysis
-The response variable for dog recommendation model is days in custody. We performed exploratory data analysis so the relationship between days in custody and other predictor variables.
-
-![](img/eda1.png)
-
-Puppies have low values of average days in custody, meaning that they are popular.
+The response variable for dog recommendation model is days in shelter (DaysInCustody - DaysInPreAdopt), which is a proxy for dog popularity (shorter shelter stay dogs would mean that the dogs are popular). We performed some basic exploratory data analysis to examine the relationship between days in custody and other predictor variables.
 
 ![](img/eda2.png)
 
@@ -167,7 +154,7 @@ Pitbulls are not popular, whereas other breeds such as Shepherd, Retriever, and 
 
 ![](img/eda4.png)
 
-Sick dogs tend to stay larger in the shleter.
+Sick dogs tend to stay longer in the shelter.
 
 ### Data Cleaning
 There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 21 columns, as shown below.
@@ -176,24 +163,23 @@ There are 147 columns (147 different features for dogs) in the data, but the maj
 1. AnimalSex
 2. AnimalCurrentWeightPounds
 3. AnimalAltered
-4. AnimalAgeDays
-5. AnimalBreed
-6. AnimalColor
-7. AgeAtIntake
-8. LastEventType
-9. FirstIntakeEventType
-10. LastIntakeEventType
-11. CurrentVolunteerCategory
-12. CurrentBehaviorCategory
-13. IsDistemper
-14. IsDistemperWatch
-15. IsMedicalConsult
-16. IsCGC
-17. IsTopDog
-18. IsHWPos
-19. IsHWTreatment
-20. IsBehaviorConsult
-21. DaysInShelter
+4. AnimalBreed
+5. AnimalColor
+6. AgeAtIntake
+7. LastEventType
+8. FirstIntakeEventType
+9. LastIntakeEventType
+10. CurrentVolunteerCategory
+11. CurrentBehaviorCategory
+12. IsDistemper
+13. IsDistemperWatch
+14. IsMedicalConsult
+15. IsCGC
+16. IsTopDog
+17. IsHWPos
+18. IsHWTreatment
+29. IsBehaviorConsult
+20. DaysInShelter
 
 We cleaned each column to make it ready for modeling. While the majority of columns needed minor changes like dropping few NaN values, we spent significant amount of time inspecting 'AnimalColor' and 'AnimalBreed' columns, since they are important features when determining the popularity of dogs.
 
@@ -215,15 +201,15 @@ For other categorical columns like AnimalSex, IsDistemper, IsCGC, etc, we perfor
 
 ### 1. Prior Model
 
-The response variable for our analysis is 'DaysInShelter'. The goal of the prior model is to figure out the best model that predicts 'DaysInShelter' and deliver the best set of coefficients of predictor variables to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.
+Our goal is to find the best prior model that best predicts 'DaysInShelter' and deliver the best set of coefficients estimates to the Bayesian Posterior Model, so that it can start to be updated once user swipes into our system.
 
-In order to find the best model, we have tried linear regression without polynomial terms, linear regression with polynomial degree 3 for 'AgeAtIntake', lassoCV with polynomial degree 3 for 'AgeAtIntake', ridgeCV with polynomial degree 3 for 'AgeAtIntake', and random forest using gridsearchCV. Expecting that 'AgeAtIntake' has a positive correlation with 'DaysInShelter', we would like to find out a non-linear relationship between 'AgeAtIntake' and 'DaysInShelter', by taking polynomial degree 3 for 'AgeAtIntake'.
+In order to find the best model, we have tried linear regression without polynomial terms, linear regression with polynomial degree 3 for 'AgeAtIntake', lassoCV with polynomial degree 3 for 'AgeAtIntake', ridgeCV with polynomial degree 3 for 'AgeAtIntake', and random forest using gridsearchCV. Since very young puppies and very old dogs at intake would have longer stay at the shelter, we expected nonlinear relationship between 'AgeAtIntake' and 'DaysInShelter' and added polynomial feature up to degree 3 for 'AgeAtIntake' variable.
 
 ![](img/prior_scores.png)
 
-Random forest using gridsearchCV produced the best test set $R^2$ score, followed by ridgeCV with polynomial degree 3 for 'AgeAtIntake'. We decided to use ridgeCV, since ridge regression provides values of coefficients that can be used as coefficients for the posterior model and the performance of the ridge regression model was nearly as good as the random forest model.
+Random forest regressor using gridsearchCV produced the best test set R2 score, followed by ridgeCV with polynomial degree 3 for 'AgeAtIntake'. We decided to use ridgeCV (ridge regression with best hyperparameters), since ridge regression provides values of coefficients that can be used as coefficients for the posterior model, and the performance of the ridge regression model was nearly as good as the random forest model.
 
-Notebook demo can be found [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/apa_cleaning_prior_model.ipynb).
+More details can be found in the notebook demo [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/apa_cleaning_prior_model.ipynb).
 
 
 ### 2. User Swipes Model
@@ -233,15 +219,14 @@ Bayesian Logistic regression is well-suited to this task. We begin by encoding e
 Each night, we update our view of what preferences someone walking in the door may have. Presently, we re-run the Prior Model on the now-larger historical data. As user swipes become available, this can expand to a hierarchical model that factors in the observed swipe histories.
 Since Bayesian Logistic Regression doesn't have a closed-form solution and standard techniques are too slow at updating to user's swipes, we've implemented a very fast approximation to the full solution.  This model updates in under 1/10th of a second, meaning users see very little lag while we discover new dogs for them to swipe on.
 
-Notebook demo can be found [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Project%20Model%20Implementation%20and%20Testing.ipynb) and [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Laplace%20Logistic%20Regression%20Model.ipynb).
-
+More details can be found in the notebook demo [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Project%20Model%20Implementation%20and%20Testing.ipynb) and [here](https://github.com/Harvard-IACS/2019-AC297rs-APA-matching/blob/master/AC297R/submissions/Final/Laplace%20Logistic%20Regression%20Model.ipynb).
 
 
 ### Embedding model
-Borrowing some ideas from autoencoders, we also explored a novel way of performing data reduction. It is conceptually similar to PCA, but where PCA doesn't take account of the y variable, this method finds the linear combination of features (under a specific model) that best predict outcomes. We expect this approach to become a valuable pre-processing technique as user swipe data becomes avaiable. At present we find an essentially lossless 2d embedding of the data for the purpose of predicting length of stay, but there are artifacts indicating that we'd lose information relevant to predicting swiping behavior instead of length of stay.
+Borrowing some ideas from autoencoders, we also explored a novel way of performing data reduction. It is conceptually similar to PCA, but where PCA doesn't take account of the y variable, this method finds the linear combination of features (under a specific model) that best predict outcomes. We expect this approach to become a valuable pre-processing technique as user swipe data becomes available. At present, we find an essentially lossless 2d embedding of the data for the purpose of predicting length of stay, but there are artifacts indicating that we'd lose information relevant to predicting swiping behavior instead of length of stay.
 
 ## Summary
-In conclusion, we have a working web architecture that performs dog recommendations for potential adopters. Our web application will help improve dog adoption rate by recommending the right dogs that the adopters are more likely to adopt. Furthermore, our application helps publicize even the dogs that have stayed long in the shelter by featuring them on the main page, as well as matching users with long-stay dogs with highest ranking.
+In summary, we have a working web architecture that performs dog recommendations for potential adopters. Our web application will help improve dog adoption rate by recommending the right dogs that the adopters are more likely to adopt. Furthermore, our application helps publicize even the dogs that have stayed long in the shelter by featuring them on the main page, as well as matching users with long-stay dogs with highest ranking.
 
 If the shelter visitors actually start using our matching application, it will reduce the time the matchmakers have to spend with each person, and also keep the visitors engaged while waiting for their appointment. We hope that our web application will consequentially help reduce the visitor's appointment cancellation rate.
 
