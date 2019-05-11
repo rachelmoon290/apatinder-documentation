@@ -157,7 +157,7 @@ Pitbulls are not popular, whereas other breeds such as Shepherd, Retriever, and 
 Sick dogs tend to stay longer in the shelter.
 
 ### Data Cleaning
-There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 21 columns, as shown below.
+There are 147 columns (147 different features for dogs) in the data, but the majority of columns was filled with NaN values or did not seem to be important for our model. We decided to drop columns where more than 60% of their values consist of NaNs and drop columns not relevant to our model, such as 'AnimalCoverPhoto', 'Location', 'AnimalStatus', etc. We were left with 20 columns, as shown below.
 
 
 1. AnimalSex
