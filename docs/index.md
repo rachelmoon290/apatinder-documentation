@@ -237,7 +237,7 @@ Now that we have a working web application architecture, the next step is to col
 The references we used for our frontend, backend, and model can be found in `references` folder.
 
 ## About Us
-We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of [AC297r: Capstone Project course](https://harvard-iacs.github.io/2019-AC297rs/)), and we partnered with Austin Pets Alive! organization to work on this project.
+We are a group of Masters and PhD candidate students from Harvard University School of Engineering and Applied Sciences (SEAS). This project is part of [AC297r: Capstone Project course](https://harvard-iacs.github.io/2019-AC297rs/), and we partnered with Austin Pets Alive! organization to work on this project.
 
 ## Acknowledgements
 We would like to give special thanks to our capstone project instructors Dr. David Sondak and Patrick Ohiomoba, who guided our projects from beginning to end and always gave us helpful feedback. We also greatly thank Steve Porter, Director of Lifesaving Operations at Austin Pets Alive!, for partnering with our team and being very enthusiastic about our project and super supportive.
