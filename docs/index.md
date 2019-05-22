@@ -138,7 +138,7 @@ The matchmakers can view the list of users who have signed up and used our appli
 ## Dog Recommendation Model
 Our dog recommendation model aims to first present the users with dogs that are predicted to be popular in general, and then use their swipe behavior to update the rankings based on their preferences.
 
-![](img/model architecture.png)
+![](img/model_architecture.png)
 
 ### Data
 Our team was given sql dump data from APA! that contains information about all dogs (~30,000 dogs) that have entered APA! shelter. The sql file had 20 different tables. We looked into each table and decided to use 8 tables relevant to our data analysis. We joined 8 tables to create the master table that consists of 28,561 rows and 147 columns.
